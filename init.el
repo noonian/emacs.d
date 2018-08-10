@@ -123,7 +123,14 @@ packages are already installed which improves startup time."
   (evil-mode 1)
   (add-hook 'view-mode-hook 'evil-motion-state))
 
-(use-package evil-cleverparens :after evil :ensure t :demand t)
+(use-package evil-cleverparens
+  :after evil
+  :ensure t
+  :demand t
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'evil-cleverparens-mode)
+  (add-hook 'lisp-mode-hook 'evil-cleverparens-mode)
+  )
 
 (use-package evil-collection
   :after evil :ensure t :demand t
