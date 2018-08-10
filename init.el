@@ -96,9 +96,9 @@ packages are already installed which improves startup time."
 ;;; Frame and font settings
 
 (setq default-frame-alist
-        '((top . 0) (left . 259)      ;pixels
-          (width . 100) (height . 54) ;characters
-          (font . "Input Mono 16")))
+      '((top . 0) (left . 259)          ;pixels
+        (width . 100) (height . 54)     ;characters
+        (font . "Input Mono 16")))
 
 ;;;
 ;;;
