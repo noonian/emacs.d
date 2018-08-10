@@ -194,6 +194,16 @@ packages are already installed which improves startup time."
                   (untabify (point-min) (point-max)))
               (delete-trailing-whitespace))))
 
+(use-package helm
+  :ensure t
+  :init
+  (setq helm-autoresize-mode t)
+  (setq helm-buffer-max-length 40)
+  :bind (("M-x" . helm-M-x))
+  :config
+  (require 'helm-config)
+  (helm-mode 1))
+
 ;; (use-package highlight-parentheses
 ;;   :ensure t
 ;;   :demand t
