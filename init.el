@@ -156,11 +156,13 @@ packages are already installed which improves startup time."
   :init
   (setq evil-leader/in-all-states 1)
   :config
-  (global-evil-leader-mode)
   (evil-leader/set-leader ",")
+  (evil-leader-mode 1)          ;evil-leader/set-leader kills the mode
+  (global-evil-leader-mode 1)
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
   (evil-leader/set-key
     "e" 'find-file
+    "s" 'save-buffer
     "b" 'switch-to-buffer
     "k" 'kill-buffer)
   )
