@@ -57,8 +57,7 @@ packages are already installed which improves startup time."
 
 ;; Remove modes from minibar
 (use-package delight
-  :ensure t
-  :demand t
+  :ensure t :demand t
   :init
   ;; (use-package face-remap :delight (text-scale-mode))
   )
@@ -124,9 +123,7 @@ packages are already installed which improves startup time."
   (add-hook 'view-mode-hook 'evil-motion-state))
 
 (use-package evil-cleverparens
-  :after evil
-  :ensure t
-  :demand t
+  :after evil :ensure t :demand t
   :init
   (add-hook 'emacs-lisp-mode-hook 'evil-cleverparens-mode)
   (add-hook 'lisp-mode-hook 'evil-cleverparens-mode)
@@ -143,9 +140,7 @@ packages are already installed which improves startup time."
   (evil-commentary-mode))
 
 (use-package evil-extra-operator
-  :after evil
-  :ensure t
-  :demand t
+  :after evil :ensure t :demand t
   :init
   (setq evil-extra-operator-eval-key (kbd "ge"))
   :config
@@ -163,8 +158,7 @@ packages are already installed which improves startup time."
   (evil-leader/set-key
     "s" 'save-buffer
     "b" 'switch-to-buffer
-    "k" 'kill-buffer)
-  )
+    "k" 'kill-buffer))
 
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
@@ -192,12 +186,11 @@ packages are already installed which improves startup time."
 
 ;; Emacs init.el profiling
 (use-package esup
-  :ensure t
-  :defer t
+  :ensure t :defer t
   :commands (esup))
 
 (use-package exec-path-from-shell
-  :ensure  :defer 5
+  :ensure t :defer 5
   :commands (exec-path-from-shell-initialize)
   :init
   (defun exec-path-from-shell-initialize-safely ()
@@ -205,8 +198,7 @@ packages are already installed which improves startup time."
     (when (memq window-system '(mac ns x))
       (exec-path-from-shell-initialize)))
   :config
-  (exec-path-from-shell-initialize-safely)
-  )
+  (exec-path-from-shell-initialize-safely))
 
 (use-package linum
   :config
@@ -246,9 +238,7 @@ packages are already installed which improves startup time."
 
 ;; Best git porcelain EVER!!!!!!!!!
 (use-package magit
-  :after evil-leader
-  :ensure t
-  :defer t
+  :after evil-leader :ensure t :defer t
   :commands (magit-status magit-clone)
   :init
   (evil-leader/set-key
@@ -268,8 +258,7 @@ packages are already installed which improves startup time."
 
 ;; Manage parens so I don't have to
 (use-package smartparens
-  :ensure t
-  :demand t
+  :ensure t :demand t
   :config
   (require 'smartparens-config)
   (smartparens-global-strict-mode 1))
