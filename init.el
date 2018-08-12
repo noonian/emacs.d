@@ -180,6 +180,16 @@ packages are already installed which improves startup time."
     (let ((indent-tabs-mode nil))
       ad-do-it)))
 
+(use-package cider
+  :ensure t :defer t
+  :commands (cider-jack-in cider-connect)
+  :init
+  (evil-leader/set-key
+    "c j" 'cider-jack-in
+    "c c" 'coder-connect))
+
+(use-package clojure-mode :ensure t :defer t)
+
 ;; Emacs init.el profiling
 (use-package esup
   :ensure t
