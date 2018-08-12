@@ -244,6 +244,15 @@ packages are already installed which improves startup time."
   :config
   (require 'evil-magit))
 
+(use-package projectile :ensure t :defer t)
+
+(use-package helm-projectile
+  :ensure t :defer t
+  :commands (helm-projectile-find-file)
+  :init
+  (evil-leader/set-key
+    "p f" 'helm-projectile-find-file))
+
 ;; Manage parens so I don't have to
 (use-package smartparens
   :ensure t
