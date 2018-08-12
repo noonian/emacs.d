@@ -60,7 +60,9 @@ packages are already installed which improves startup time."
   :ensure t :demand t
   :init
   ;; (use-package face-remap :delight (text-scale-mode))
-  )
+  :config
+  (delight '((undo-tree-mode "" undo-tree)
+             (eldoc-mode "" eldoc))))
 
 (use-package bind-key :ensure t :demand t)
 
@@ -97,7 +99,8 @@ packages are already installed which improves startup time."
 (setq default-frame-alist
       '((top . 0) (left . 259)          ;pixels
         (width . 100) (height . 54)     ;characters
-        (font . "Input Mono 16")))
+        (font . "Input Mono 16")
+        ))
 
 ;;;
 ;;;
@@ -262,6 +265,18 @@ packages are already installed which improves startup time."
   :config
   (require 'smartparens-config)
   (smartparens-global-strict-mode 1))
+
+;;;
+;;;
+;;; Custom mode line
+
+(use-package spaceline
+  :ensure t :demand t
+  :init
+  (setq powerline-image-apple-rgb t)
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 ;;; Finalization
 
