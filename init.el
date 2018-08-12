@@ -161,7 +161,6 @@ packages are already installed which improves startup time."
   (global-evil-leader-mode 1)
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
   (evil-leader/set-key
-    "e" 'find-file
     "s" 'save-buffer
     "b" 'switch-to-buffer
     "k" 'kill-buffer)
@@ -216,11 +215,15 @@ packages are already installed which improves startup time."
               (delete-trailing-whitespace))))
 
 (use-package helm
-  :ensure t
+  :ensure t :defer t
+  :commands (helm-find-files)
   :init
   (setq helm-autoresize-mode t)
   (setq helm-buffer-max-length 40)
-  :bind (("M-x" . helm-M-x))
+  (evil-leader/set-key
+    "e" 'helm-find-files)
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files))
   :config
   (require 'helm-config)
   (helm-mode 1))
