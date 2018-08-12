@@ -187,6 +187,18 @@ packages are already installed which improves startup time."
   :defer t
   :commands (esup))
 
+(use-package exec-path-from-shell
+  :ensure  :defer 5
+  :commands (exec-path-from-shell-initialize)
+  :init
+  (defun exec-path-from-shell-initialize-safely ()
+    (interactive)
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
+  :config
+  (exec-path-from-shell-initialize-safely)
+  )
+
 (use-package linum
   :config
   (global-linum-mode 1))
