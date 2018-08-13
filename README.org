@@ -5,8 +5,8 @@
   I use this config with these versions and it may break in other
   environments.
 
-  OS: Mac OSX High Sierra 10.13.4
-  Emacs: 27.0.50 (built from source)
+  - OS: Mac OSX High Sierra 10.13.4
+  - Emacs: 27.0.50 (built from source)
 
 * Installing Emacs
 
