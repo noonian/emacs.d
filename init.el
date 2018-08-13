@@ -276,6 +276,7 @@ packages are already installed which improves startup time."
   :ensure t :demand t
   :init
   (setq powerline-image-apple-rgb t)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
   :config
   (require 'spaceline-config)
   (spaceline-spacemacs-theme))
