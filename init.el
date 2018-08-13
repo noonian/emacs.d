@@ -62,7 +62,9 @@ packages are already installed which improves startup time."
   ;; (use-package face-remap :delight (text-scale-mode))
   :config
   (delight '((undo-tree-mode "" undo-tree)
-             (eldoc-mode "" eldoc))))
+             (eldoc-mode "" eldoc)
+             (evil-commentary-mode "" evil-commentary)
+             (evil-cleverparens-mode "" evil-cleverparens))))
 
 (use-package bind-key :ensure t :demand t)
 
