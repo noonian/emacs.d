@@ -64,7 +64,9 @@ packages are already installed which improves startup time."
   (delight '((undo-tree-mode "" undo-tree)
              (eldoc-mode "" eldoc)
              (evil-commentary-mode "" evil-commentary)
-             (evil-cleverparens-mode "" evil-cleverparens))))
+             (evil-cleverparens-mode "" evil-cleverparens)
+             (auto-revert-mode "" autorevert)
+             (smartparens-mode "" smartparens))))
 
 (use-package bind-key :ensure t :demand t)
 
@@ -222,7 +224,7 @@ packages are already installed which improves startup time."
               (delete-trailing-whitespace))))
 
 (use-package helm
-  :ensure t :defer t
+  :ensure t :defer t :delight helm-mode
   :commands (helm-find-files)
   :init
   (setq helm-autoresize-mode t)
