@@ -270,10 +270,7 @@ packages are already installed which improves startup time."
   (require 'smartparens-config)
   (smartparens-global-strict-mode 1))
 
-;;;
-;;;
-;;; Custom mode line
-
+;; Custom mode line
 (use-package spaceline
   :ensure t :demand t
   :init
@@ -283,10 +280,9 @@ packages are already installed which improves startup time."
   (require 'spaceline-config)
   (spaceline-spacemacs-theme))
 
-;;; Finalization
+(use-package terraform-mode :ensure t :mode "\\.tf\\'")
 
-(let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
-  (message "Loading %s...done (%.3fs)" load-file-name elapsed))
+;;; Finalization
 
 (add-hook 'after-init-hook
           `(lambda ()
