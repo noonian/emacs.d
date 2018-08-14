@@ -250,7 +250,8 @@ packages are already installed which improves startup time."
   :init
   (evil-leader/set-key
     "g"   'magit-status
-    "m s" 'magit-status)
+    "m s" 'magit-status
+    "m c" 'magit-clone)
   :config
   (require 'evil-magit))
 
