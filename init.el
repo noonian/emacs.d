@@ -26,10 +26,6 @@
 (setq user-init-file (or load-file-name (buffer-file-name)))
 (setq user-emacs-directory (file-name-directory user-init-file))
 
-;; Disable "For information about GNU Emacs and the GNU system, type
-;; C-h C-a." message on startup
-(setq inhibit-startup-echo-area-message "jed")
-
 ;; Configure package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -58,8 +54,6 @@ packages are already installed which improves startup time."
 ;; Remove modes from minibar
 (use-package delight
   :ensure t :demand t
-  :init
-  ;; (use-package face-remap :delight (text-scale-mode))
   :config
   (delight '((undo-tree-mode "" undo-tree)
              (eldoc-mode "" eldoc)
@@ -74,6 +68,7 @@ packages are already installed which improves startup time."
 ;;;
 ;;; Basic look and feel
 
+(eval-after-load "startup" '(fset 'display-startup-echo-area-message (lambda ())))
 (setq inhibit-startup-screen t)
 (blink-cursor-mode 0)
 (tool-bar-mode -1)
@@ -133,8 +128,7 @@ packages are already installed which improves startup time."
   :after evil :ensure t :demand t
   :init
   (add-hook 'emacs-lisp-mode-hook 'evil-cleverparens-mode)
-  (add-hook 'lisp-mode-hook 'evil-cleverparens-mode)
-  )
+  (add-hook 'lisp-mode-hook 'evil-cleverparens-mode))
 
 (use-package evil-collection
   :after evil :ensure t :demand t
