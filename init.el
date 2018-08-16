@@ -128,7 +128,9 @@ packages are already installed which improves startup time."
   :after evil :ensure t :demand t
   :init
   (add-hook 'emacs-lisp-mode-hook 'evil-cleverparens-mode)
-  (add-hook 'lisp-mode-hook 'evil-cleverparens-mode))
+  (add-hook 'lisp-mode-hook 'evil-cleverparens-mode)
+  (add-hook 'clojure-mode-hook 'evil-cleverparens-mode)
+  (add-hook 'clojurescript-mode-hook 'evil-cleverparens-mode))
 
 (use-package evil-collection
   :after evil :ensure t :demand t
