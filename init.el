@@ -183,7 +183,9 @@ packages are already installed which improves startup time."
   :init
   (evil-leader/set-key
     "c j" 'cider-jack-in
-    "c c" 'coder-connect))
+    "c c" 'coder-connect
+    "c q" 'cider-quit
+    "c r" 'sesman-restart))
 
 (use-package clojure-mode :ensure t :defer t)
 
