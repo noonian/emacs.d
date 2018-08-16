@@ -278,6 +278,7 @@ packages are already installed which improves startup time."
   (spaceline-spacemacs-theme))
 
 (use-package terraform-mode :ensure t :mode "\\.tf\\'")
+(use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
 ;;; Finalization
 
