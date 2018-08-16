@@ -201,6 +201,8 @@ packages are already installed which improves startup time."
   :config
   (exec-path-from-shell-initialize-safely))
 
+(use-package groovy-mode :ensure t :mode  "(\\.groovy\\|\\.gradle)\\'")
+
 (use-package linum
   :config
   (global-linum-mode 1))
