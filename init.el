@@ -189,7 +189,14 @@ packages are already installed which improves startup time."
     "c q" 'cider-quit
     "c r" 'sesman-restart))
 
-(use-package clojure-mode :ensure t :defer t)
+(use-package clojure-mode :ensure t :defer t
+  :config
+  (defconst my/clojure-indentations
+    '((div . 1)))
+
+  (dolist (item my/clojure-indentations)
+    (put-clojure-indent (car item) (cdr item))))
+
 (use-package eshell
   :init
   (defun directory-name-base (dirpath)
