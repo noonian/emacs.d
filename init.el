@@ -190,6 +190,28 @@ packages are already installed which improves startup time."
     "c r" 'sesman-restart))
 
 (use-package clojure-mode :ensure t :defer t)
+(use-package eshell
+  :init
+  (defun directory-name-base (dirpath)
+    (file-name-nondirectory (directory-file-name dirpath)))
+
+  (defun my/next-shell-name (&optional suffix)
+    "Return a string named after the current buffer. If the default
+  name already exists increment it by one and return that."
+    (format "*eshell*<%s%s>" (directory-name-base default-directory) (if suffix suffix "")))
+
+  (defun my/start-shell (&optional create-new?)
+    "Start a shell named after the current buffer."
+    (interactive "P")
+    ;; (eshell (my/next-shell-name))
+    (let ((n "")
+          (name (my/next-shell-name)))
+      (while (and create-new? (my/buffer-open? name))
+        (setq n (1+ (if (stringp n) 1 n)))
+        (setq name (my/next-shell-name n)))
+      (eshell name)))
+
+  (evil-leader/set-key "s" 'my/start-shell))
 
 ;; Emacs init.el profiling
 (use-package esup
