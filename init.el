@@ -180,7 +180,7 @@ packages are already installed which improves startup time."
       ad-do-it)))
 
 (use-package cider
-  :ensure t :defer t
+  :ensure t :defer t :after exec-path-from-shell
   :commands (cider-jack-in cider-connect)
   :init
   (evil-leader/set-key
