@@ -161,7 +161,7 @@ packages are already installed which improves startup time."
   (global-evil-leader-mode 1)
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
   (evil-leader/set-key
-    "s" 'save-buffer
+    "w" 'save-buffer
     "b" 'switch-to-buffer
     "k" 'kill-buffer))
 
