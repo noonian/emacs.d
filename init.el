@@ -204,21 +204,23 @@ packages are already installed which improves startup time."
   (defun directory-name-base (dirpath)
     (file-name-nondirectory (directory-file-name dirpath)))
 
-  (defun my/next-shell-name (&optional suffix)
-    "Return a string named after the current buffer. If the default
-  name already exists increment it by one and return that."
+  (defun my/shell-name (&optional suffix)
     (format "*eshell*<%s%s>" (directory-name-base default-directory) (if suffix suffix "")))
 
-  (defun my/start-shell (&optional create-new?)
+  (defun my/buffer-open? (name)
+    (seq-reduce (lambda (res buf) (or res (string= name (buffer-name buf))))
+                (buffer-list)
+                nil))
+
+  (defun my/start-shell (&optional create-new? n)
     "Start a shell named after the current buffer."
     (interactive "P")
-    ;; (eshell (my/next-shell-name))
-    (let ((n "")
-          (name (my/next-shell-name)))
-      (while (and create-new? (my/buffer-open? name))
-        (setq n (1+ (if (stringp n) 1 n)))
-        (setq name (my/next-shell-name n)))
-      (eshell name)))
+    (let ((eshell-buffer-name (if create-new? (my/shell-name (or n 1)) (my/shell-name))))
+      (if (not (my/buffer-open? eshell-buffer-name))
+          (eshell)
+        (if (not create-new?)
+            (pop-to-buffer eshell-buffer-name)
+          (my/start-shell t (1+ (or n 1)))))))
 
   (evil-leader/set-key "s" 'my/start-shell))
 
