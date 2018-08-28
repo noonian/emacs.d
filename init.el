@@ -290,6 +290,12 @@ packages are already installed which improves startup time."
   :config
   (require 'evil-magit))
 
+(use-package org-bullets
+  :ensure t :defer t
+  :commands (org-bullets-mode)
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 (use-package projectile :ensure t :defer t)
 
 (use-package helm-projectile
