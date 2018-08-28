@@ -192,7 +192,9 @@ packages are already installed which improves startup time."
 (use-package clojure-mode :ensure t :defer t
   :config
   (defconst my/clojure-indentations
-    '((div . 1)))
+    '((div . 1)
+      (figure . 1)
+      (button . 1)))
 
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
