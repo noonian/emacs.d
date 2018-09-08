@@ -200,6 +200,8 @@ packages are already installed which improves startup time."
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
 
+(use-package dockerfile-mode :ensure t :defer t)
+
 (use-package eshell
   :init
   (defun directory-name-base (dirpath)
