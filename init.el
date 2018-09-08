@@ -122,7 +122,8 @@ packages are already installed which improves startup time."
   (setq evil-want-integration nil)
   :config
   (evil-mode 1)
-  (add-hook 'view-mode-hook 'evil-motion-state))
+  (add-hook 'view-mode-hook 'evil-motion-state)
+  (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle))
 
 (use-package evil-cleverparens
   :after evil :ensure t :demand t
