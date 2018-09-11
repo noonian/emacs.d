@@ -226,6 +226,9 @@ packages are already installed which improves startup time."
     "Start a shell named after the current buffer."
     (interactive "P")
     (let ((eshell-buffer-name (if create-new? (my/shell-name (or n 1)) (my/shell-name))))
+      (when (and (memq window-system '(ns))
+                 (not (string-match-p "/usr/local/bin" eshell-path-env)))
+        (exec-path-from-shell-initialize-safely))
       (if (not (my/buffer-open? eshell-buffer-name))
           (eshell)
         (if (not create-new?)
@@ -245,8 +248,9 @@ packages are already installed which improves startup time."
   :init
   (defun exec-path-from-shell-initialize-safely ()
     (interactive)
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize)))
+    (when (memq window-system '(ns x))
+      (exec-path-from-shell-initialize)
+      (setq-default eshell-path-env (string-join exec-path ":"))))
   :config
   (exec-path-from-shell-initialize-safely))
 
