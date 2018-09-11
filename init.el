@@ -333,6 +333,12 @@ packages are already installed which improves startup time."
   (spaceline-spacemacs-theme))
 
 (use-package terraform-mode :ensure t :mode "\\.tf\\'")
+
+(use-package web-mode
+  :ensure t :defer t
+  :init
+  (setq web-mode-markup-indent-offset 2))
+
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
 ;;; Finalization
