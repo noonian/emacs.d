@@ -339,6 +339,12 @@ packages are already installed which improves startup time."
   :init
   (setq web-mode-markup-indent-offset 2))
 
+(use-package yasnippet :ensure t
+  :init
+  (add-hook 'mhtml-mode-hook (lambda () (yas-minor-mode 1)))
+  (add-hook 'web-mode-hook (lambda () (yas-minor-mode 1)))
+  )
+
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
 ;;; Finalization
