@@ -240,7 +240,7 @@ packages are already installed which improves startup time."
   :commands (esup))
 
 (use-package exec-path-from-shell
-  :ensure t :defer 5
+  :ensure t :defer 1
   :commands (exec-path-from-shell-initialize)
   :init
   (defun exec-path-from-shell-initialize-safely ()
