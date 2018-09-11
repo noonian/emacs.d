@@ -161,10 +161,17 @@ packages are already installed which improves startup time."
   (evil-leader-mode 1)          ;evil-leader/set-leader kills the mode
   (global-evil-leader-mode 1)
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
+
+  ;; Random custom functions (TODO: find a better place to put them)
+  (defun my/find-projects-file ()
+    (interactive)
+    (find-file "~/git/projects/project-management/projects.org"))
+
   (evil-leader/set-key
-    "w" 'save-buffer
-    "b" 'switch-to-buffer
-    "k" 'kill-buffer))
+    "w"   'save-buffer
+    "b"   'switch-to-buffer
+    "k"   'kill-buffer
+    "P l" 'my/find-projects-file))
 
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
