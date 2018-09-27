@@ -195,17 +195,33 @@ packages are already installed which improves startup time."
     "c j" 'cider-jack-in
     "c c" 'coder-connect
     "c q" 'cider-quit
+    "c k" 'cider-repl-clear-buffer
     "c r" 'sesman-restart))
 
 (use-package clojure-mode :ensure t :defer t
   :config
   (defconst my/clojure-indentations
-    '((div . 1)
+    '((assoc . 1)
+      (into . 1)
+
+      (div . 1)
       (figure . 1)
       (button . 1)))
 
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
+
+(use-package company :ensure t
+  :init
+  (setq company-idle-delay 0.1)
+  (setq company-minimum-prefix-length 1)
+  (setq company-dabbrev-downcase nil)
+  ;; (evil-define-key 'normal company-active-map (kbd "<return>") #'company-complete-selection)
+  :config
+  (evil-define-key 'insert company-active-map (kbd "<return>") #'company-complete-selection)
+  (evil-collection-define-key nil 'company-active-map (kbd "<return>") #'company-complete-selection)
+
+  )
 
 (use-package dockerfile-mode :ensure t :defer t)
 
