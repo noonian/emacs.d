@@ -138,6 +138,11 @@ packages are already installed which improves startup time."
 (use-package evil-collection
   :after evil :ensure t :demand t
   :config
+  (defun my/evil-collection-helm-tweaks ()
+    (evil-collection-define-key nil 'helm-map
+      (kbd "C-j") 'helm-next-line
+      (kbd "C-k") 'helm-previous-line))
+  (advice-add 'evil-collection-helm-setup :after #'my/evil-collection-helm-tweaks)
   (evil-collection-init))
 
 (use-package evil-commentary
