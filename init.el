@@ -221,11 +221,10 @@ packages are already installed which improves startup time."
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
   (setq company-dabbrev-downcase nil)
-  ;; (evil-define-key 'normal company-active-map (kbd "<return>") #'company-complete-selection)
+  (global-company-mode)
   :config
   (evil-define-key 'insert company-active-map (kbd "<return>") #'company-complete-selection)
   (evil-collection-define-key nil 'company-active-map (kbd "<return>") #'company-complete-selection)
-
   )
 
 (use-package dockerfile-mode :ensure t :defer t)
