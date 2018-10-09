@@ -339,6 +339,8 @@ packages are already installed which improves startup time."
   (evil-leader/set-key
     "p f" 'helm-projectile-find-file))
 
+(use-package restclient :ensure t :mode ("\\.restclient\\'" . restclient-mode))
+
 ;; Manage parens so I don't have to
 (use-package smartparens
   :ensure t :demand t
