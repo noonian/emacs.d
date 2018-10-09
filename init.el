@@ -211,7 +211,12 @@ packages are already installed which improves startup time."
 
       (div . 1)
       (figure . 1)
-      (button . 1)))
+      (button . 1)
+
+      (transact! . 1)
+      (action . 1)
+
+      ))
 
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
