@@ -181,6 +181,10 @@ packages are already installed which improves startup time."
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
 
+(use-package evil-surround :ensure t :demand t
+  :config
+  (global-evil-surround-mode))
+
 ;;;
 ;;;
 ;;; Random packages
