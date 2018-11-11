@@ -335,6 +335,8 @@ packages are already installed which improves startup time."
   :config
   (require 'evil-magit))
 
+(use-package markdown-mode :ensure t :mode "\\.md\\'")
+
 (use-package org-bullets
   :ensure t :defer t
   :commands (org-bullets-mode)
