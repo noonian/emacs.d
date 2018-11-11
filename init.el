@@ -371,6 +371,9 @@ packages are already installed which improves startup time."
 
 (use-package terraform-mode :ensure t :mode "\\.tf\\'")
 
+;; Python pipenv uses toml for config ಠ_ಠ
+(use-package toml-mode :ensure t :commands (toml-mode))
+
 (use-package web-mode
   :ensure t :defer t
   :init
