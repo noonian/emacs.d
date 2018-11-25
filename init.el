@@ -122,6 +122,7 @@ packages are already installed which improves startup time."
   :ensure t :demand t
   :init
   (setq evil-want-integration nil)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (add-hook 'view-mode-hook 'evil-motion-state)
