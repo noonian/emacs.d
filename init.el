@@ -212,15 +212,35 @@ packages are already installed which improves startup time."
 (use-package clojure-mode :ensure t :defer t
   :config
   (defconst my/clojure-indentations
-    '((assoc . 1)
+    '(
+      ;; Core
+      (assoc . 1)
       (into . 1)
 
+      ;; HTML
+      (article . 1)
+      (button . 1)
       (div . 1)
       (figure . 1)
-      (button . 1)
+      (h1 . 1)
+      (h2 . 2)
+      (h3 . 3)
+      (h4 . 4)
+      (h5 . 5)
+      (h6 . 6)
+      (header . 1)
+      (section . 1)
 
+      ;; Fulcro/Om.next
       (transact! . 1)
       (action . 1)
+
+      ;; Fulcro - common conventions and names for mutations
+      (file-upload . 1)
+
+      ;; Compojure
+      (GET . 2)
+      (context . 2)
 
       ))
 
