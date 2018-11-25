@@ -365,7 +365,8 @@ packages are already installed which improves startup time."
   :ensure t :demand t
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode 1))
+  (smartparens-global-mode 1)
+  (show-smartparens-global-mode 1))
 
 ;; Custom mode line
 (use-package spaceline
