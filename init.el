@@ -26,6 +26,8 @@
 (setq user-init-file (or load-file-name (buffer-file-name)))
 (setq user-emacs-directory (file-name-directory user-init-file))
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 ;; Configure package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
