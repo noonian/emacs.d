@@ -336,7 +336,7 @@ packages are already installed which improves startup time."
               (delete-trailing-whitespace))))
 
 (use-package helm
-  :ensure t :defer t :delight helm-mode
+  :ensure t :defer 0.5 :delight helm-mode
   :commands (helm-find-files)
   :init
   (setq helm-autoresize-mode t)
@@ -365,7 +365,8 @@ packages are already installed which improves startup time."
     "m s" 'magit-status
     "m c" 'magit-clone)
   :config
-  (require 'evil-magit))
+  (require 'evil-magit)
+  )
 
 (use-package markdown-mode :ensure t :mode "\\.md\\'")
 
@@ -392,7 +393,6 @@ packages are already installed which improves startup time."
 
 (use-package restclient :ensure t :mode ("\\.restclient\\'" . restclient-mode))
 
-;; Manage parens so I don't have to
 (use-package smartparens
   :ensure t :demand t
   :config
