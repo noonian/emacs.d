@@ -424,6 +424,9 @@ packages are already installed which improves startup time."
 
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
+;; Start server to support emacsclient
+(server-start)
+
 ;;; Finalization
 
 (add-hook 'after-init-hook
