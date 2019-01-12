@@ -177,11 +177,16 @@ packages are already installed which improves startup time."
     (interactive)
     (find-file "~/git/projects/project-management/projects.org"))
 
+  (defun my/find-projects-dir ()
+    (interactive)
+    (dired "~/git/projects"))
+
   (evil-leader/set-key
     "w"   'save-buffer
     "b"   'switch-to-buffer
     "k"   'kill-buffer
-    "P l" 'my/find-projects-file))
+    "P l" 'my/find-projects-dir
+    "P f" 'my/find-projects-file))
 
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
