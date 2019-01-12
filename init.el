@@ -294,7 +294,11 @@ packages are already installed which improves startup time."
             (pop-to-buffer eshell-buffer-name)
           (my/start-shell t (1+ (or n 1)))))))
 
-  (evil-leader/set-key "s" 'my/start-shell))
+  (evil-leader/set-key "s" 'my/start-shell)
+
+  (add-hook 'eshell-mode-hook (lambda () (company-mode -1)))
+
+  )
 
 ;; Emacs init.el profiling
 (use-package esup
