@@ -222,9 +222,15 @@ packages are already installed which improves startup time."
   :config
   (defconst my/clojure-indentations
     '(
+      ;; tmp/custom
+      (get-ident . 1)
+      (get-query . 1)
+      (get-initial-state . 1)
+
       ;; Core
       (assoc . 1)
       (into . 1)
+      (add-watch . 2)
 
       ;; HTML
       (article . 1)
