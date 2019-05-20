@@ -342,6 +342,13 @@ packages are already installed which improves startup time."
                 (untabify (point-min) (point-max)))
               (delete-trailing-whitespace))))
 
+(use-package guix
+  :defer t
+  :commands (guix guix-all-packages)
+  :init
+  (evil-leader/set-key
+    "G" 'guix))
+
 (use-package helm
   :ensure t :defer 0.5 :delight helm-mode
   :commands (helm-find-files)
