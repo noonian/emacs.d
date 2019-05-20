@@ -212,6 +212,7 @@ packages are already installed which improves startup time."
   :init
   (evil-leader/set-key
     "c j" 'cider-jack-in
+    "c J" 'cider-jack-in-cljs
     "c c" 'coder-connect
     "c q" 'cider-quit
     "c k" 'cider-repl-clear-buffer
