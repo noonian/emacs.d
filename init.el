@@ -371,6 +371,19 @@ packages are already installed which improves startup time."
 
 (use-package markdown-mode :ensure t :mode "\\.md\\'")
 
+(use-package powerline :ensure t)
+
+(use-package moe-theme
+  :ensure t
+  :demand t
+  :after powerline
+  :init
+  (setq powerline-image-apple-rgb (eq window-system 'ns))
+  :config
+  ;; (load-theme 'moe-light t)
+  (load-theme 'moe-dark t)
+  (powerline-moe-theme))
+
 (use-package org-bullets
   :ensure t :defer t
   :commands (org-bullets-mode)
@@ -400,16 +413,6 @@ packages are already installed which improves startup time."
   (require 'smartparens-config)
   (smartparens-global-mode 1)
   (show-smartparens-global-mode 1))
-
-;; Custom mode line
-(use-package spaceline
-  :ensure t :demand t
-  :init
-  (setq powerline-image-apple-rgb t)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
 
 (use-package terraform-mode :ensure t :mode "\\.tf\\'")
 
