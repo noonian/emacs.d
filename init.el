@@ -445,6 +445,11 @@ packages are already installed which improves startup time."
 
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
+;; Support local config untracked by git
+(if (file-exists-p "~/.emacs.d/lisp/local-init.el")
+    (load "local-init")
+  (message "local-init.el does not exist"))
+
 ;; Start server to support emacsclient
 (server-start)
 
