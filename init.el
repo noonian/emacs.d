@@ -216,7 +216,8 @@ packages are already installed which improves startup time."
     "c c" 'coder-connect
     "c q" 'cider-quit
     "c k" 'cider-repl-clear-buffer
-    "c r" 'sesman-restart))
+    "c r" 'sesman-restart
+    "c e" 'cider-eval-buffer))
 
 (use-package clojure-mode :ensure t :defer t
   :config
