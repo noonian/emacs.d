@@ -387,16 +387,54 @@ packages are already installed which improves startup time."
 
 (use-package powerline :ensure t)
 
-(use-package moe-theme
+;; (use-package dracula-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'dracula t))
+
+(use-package gruvbox-theme
   :ensure t
-  :demand t
-  :after powerline
-  :init
-  (setq powerline-image-apple-rgb (eq window-system 'ns))
   :config
-  ;; (load-theme 'moe-light t)
-  (load-theme 'moe-dark t)
-  (powerline-moe-theme))
+  ;; (load-theme 'gruvbox t) ;aka gruvbox-dark-medium
+  ;; (load-theme 'gruvbox-dark-soft t)
+  (load-theme 'gruvbox-dark-medium t)
+  ;; (load-theme 'gruvbox-dark-hard t)
+  ;; (load-theme 'gruvbox-light-soft t)
+  ;; (load-theme 'gruvbox-light-medium t)
+  ;; (load-theme 'gruvbox-light-hard t)
+  )
+
+;; (use-package moe-theme
+;;   :ensure t
+;;   :demand t
+;;   :after powerline
+;;   :init
+;;   (setq powerline-image-apple-rgb (eq window-system 'ns))
+;;   :config
+;;   (load-theme 'moe-light t)
+;;   ;; (load-theme 'moe-dark t)
+;;   (powerline-moe-theme))
+
+;; (use-package nord-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'nord t))
+
+;; (use-package phoenix-dark-pink-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'phoenix-dark-pink t))
+
+;; (use-package parchment-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'parchment t))
+
+;; (use-package poet-theme
+;;   :ensure t
+;;   :config
+;;   ;; (load-theme 'poet)
+;;   (load-theme 'poet-dark))
 
 (use-package org-bullets
   :ensure t :defer t
