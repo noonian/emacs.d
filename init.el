@@ -116,6 +116,12 @@ packages are already installed which improves startup time."
                   (other-window 1)
                   (delete-window)))
 
+;;; Windows support
+
+;; Make left windows key act as super
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super) ; Left Windows key
+
 ;;;
 ;;;
 ;;; Evil mode config
