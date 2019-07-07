@@ -256,6 +256,9 @@ packages are already installed which improves startup time."
       ;; Fulcro/Om.next
       (transact! . 1)
       (action . 1)
+      (add-form-config . 1)
+      (load . 2)
+      (form . 1)
 
       ;; Fulcro - common conventions and names for mutations
       (file-upload . 1)
