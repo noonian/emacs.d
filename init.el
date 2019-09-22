@@ -192,7 +192,8 @@ packages are already installed which improves startup time."
     "b"   'switch-to-buffer
     "k"   'kill-buffer
     "P l" 'my/find-projects-dir
-    "P f" 'my/find-projects-file))
+    "P f" 'my/find-projects-file
+    "f r" 'raise-sexp))
 
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
