@@ -483,7 +483,8 @@ packages are already installed which improves startup time."
 (use-package toml-mode :ensure t :commands (toml-mode))
 
 (use-package web-mode
-  :ensure t :defer t
+  :ensure t
+  :mode "\\.html\\'"
   :init
   (setq web-mode-markup-indent-offset 2))
 
