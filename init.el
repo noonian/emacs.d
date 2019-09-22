@@ -261,6 +261,8 @@ packages are already installed which improves startup time."
       (add-form-config . 1)
       (load . 2)
       (form . 1)
+      (nav . 1)
+      (a . 1)
 
       ;; Fulcro - common conventions and names for mutations
       (file-upload . 1)
