@@ -167,7 +167,9 @@ packages are already installed which improves startup time."
   :init
   (setq evil-extra-operator-eval-key (kbd "ge"))
   :config
-  (global-evil-extra-operator-mode))
+  (global-evil-extra-operator-mode)
+  (add-to-list #'evil-extra-operator-eval-modes-alist
+               '(clojurescript-mode cider-eval-region)))
 
 (use-package evil-leader
   :after evil :ensure t :demand t
@@ -180,9 +182,11 @@ packages are already installed which improves startup time."
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
 
   ;; Random custom functions (TODO: find a better place to put them)
-  (defun my/find-projects-file ()
+  (defun my/indent-buffer ()
     (interactive)
-    (find-file "~/git/projects/project-management/projects.org"))
+    (save-excursion
+      (mark-whole-buffer)
+      (indent-for-tab-command)))
 
   (defun my/find-projects-dir ()
     (interactive)
@@ -194,7 +198,8 @@ packages are already installed which improves startup time."
     "k"   'kill-buffer
     "P l" 'my/find-projects-dir
     "P f" 'my/find-projects-file
-    "f r" 'raise-sexp))
+    "f r" 'raise-sexp
+    "i"   'my/indent-buffer))
 
 (use-package evil-magit
   :after (evil magit) :ensure t :demand t :defer t)
@@ -253,7 +258,7 @@ packages are already installed which improves startup time."
       (h5 . 5)
       (h6 . 6)
       (header . 1)
-      (section . 1)
+      ;; (section . 1)
 
       ;; Fulcro/Om.next
       (transact! . 1)
@@ -263,6 +268,8 @@ packages are already installed which improves startup time."
       (form . 1)
       (nav . 1)
       (a . 1)
+      (ul . 1)
+      (li . 1)
 
       ;; Fulcro - common conventions and names for mutations
       (file-upload . 1)
