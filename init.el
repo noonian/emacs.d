@@ -492,6 +492,10 @@ packages are already installed which improves startup time."
    ("<f9>" . org-tree-slide-move-previous-tree)
    ("<f10>" . org-tree-slide-move-next-tree)))
 
+(use-package ox-hugo
+  :ensure t
+  :after ox)
+
 (use-package projectile :ensure t :defer t)
 
 (use-package helm-projectile
