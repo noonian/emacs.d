@@ -167,9 +167,11 @@ packages are already installed which improves startup time."
   :init
   (setq evil-extra-operator-eval-key (kbd "ge"))
   :config
-  (global-evil-extra-operator-mode)
   (add-to-list #'evil-extra-operator-eval-modes-alist
-               '(clojurescript-mode cider-eval-region)))
+               '(clojurescript-mode cider-eval-region))
+  (add-to-list #'evil-extra-operator-eval-modes-alist
+               '(clojurec-mode cider-eval-region))
+  (global-evil-extra-operator-mode))
 
 (use-package evil-leader
   :after evil :ensure t :demand t
