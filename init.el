@@ -182,6 +182,13 @@ packages are already installed which improves startup time."
   (define-key evil-normal-state-map (kbd "\\") 'evil-repeat-find-char-reverse)
 
   ;; Random custom functions (TODO: find a better place to put them)
+  (defun my/close-other-byffers ()
+    (interactive)
+    (let ((cbuf (current-buffer)))
+      (mapc 'kill-buffer
+            (seq-filter (lambda (buf) (not (eq buf cbuf)))
+                        (buffer-list)))))
+
   (defun my/indent-buffer ()
     (interactive)
     (save-excursion
@@ -195,6 +202,7 @@ packages are already installed which improves startup time."
   (evil-leader/set-key
     "w"   'save-buffer
     "b"   'switch-to-buffer
+    "c b" 'my/close-other-byffers
     "k"   'kill-buffer
     "P l" 'my/find-projects-dir
     "P f" 'my/find-projects-file
