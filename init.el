@@ -422,17 +422,17 @@ packages are already installed which improves startup time."
 ;;   :config
 ;;   (load-theme 'dracula t))
 
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  ;; (load-theme 'gruvbox t) ;aka gruvbox-dark-medium
-  ;; (load-theme 'gruvbox-dark-soft t)
-  (load-theme 'gruvbox-dark-medium t)
-  ;; (load-theme 'gruvbox-dark-hard t)
-  ;; (load-theme 'gruvbox-light-soft t)
-  ;; (load-theme 'gruvbox-light-medium t)
-  ;; (load-theme 'gruvbox-light-hard t)
-  )
+;; (use-package gruvbox-theme
+;;   :ensure t
+;;   :config
+;;   ;; (load-theme 'gruvbox t) ;aka gruvbox-dark-medium
+;;   ;; (load-theme 'gruvbox-dark-soft t)
+;;   (load-theme 'gruvbox-dark-medium t)
+;;   ;; (load-theme 'gruvbox-dark-hard t)
+;;   ;; (load-theme 'gruvbox-light-soft t)
+;;   ;; (load-theme 'gruvbox-light-medium t)
+;;   ;; (load-theme 'gruvbox-light-hard t)
+;;   )
 
 ;; (use-package moe-theme
 ;;   :ensure t
@@ -465,6 +465,20 @@ packages are already installed which improves startup time."
 ;;   :config
 ;;   ;; (load-theme 'poet)
 ;;   (load-theme 'poet-dark))
+
+(use-package kaolin-themes
+  :ensure t
+  :config
+  ;; (load-theme 'kaolin-dark t)
+  (load-theme 'kaolin-aurora t)
+  ;; (load-theme 'kaolin-bubblegum)
+  ;; (load-theme 'kaolin-light t)
+  ;; (load-theme 'kaolin-eclipse t)
+  ;; (load-theme 'kaolin-ocean t)
+  ;; (load-theme 'kaolin-galaxy t)
+  ;; (load-theme 'kaolin-valley-dark t)
+  ;; (load-theme 'kaolin-temple t)
+  )
 
 (use-package org-bullets
   :ensure t :defer t
