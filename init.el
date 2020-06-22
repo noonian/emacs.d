@@ -230,16 +230,36 @@ packages are already installed which improves startup time."
       ad-do-it)))
 
 (use-package cider
-  :ensure t :defer t :after exec-path-from-shell
-  :commands (cider-jack-in cider-connect)
+  :ensure t
+  :defer t
+  :after exec-path-from-shell
+  :commands (cider-jack-in cider-jack-in-clj cider-jack-in-cljs cider-connect)
   :init
+
+  (defun my/cider-jack-in-cli ()
+    (interactive)
+    (let ((cider-preferred-build-tool 'clojure-cli))
+      (cider-jack-in-clj '())))
+
+  (defun my/cider-jack-in-shadow ()
+    (interactive)
+    (let ((cider-preferred-build-tool 'shadow-cljs))
+      (cider-jack-in-cljs '())))
+
+  (defun my/integrant-reset ()
+    (interactive)
+    (cider-interactive-eval "(integrant.repl/reset)"
+                            nil
+                            nil
+                            (cider--nrepl-pr-request-map)))
+
   (evil-leader/set-key
-    "c j" 'cider-jack-in
-    "c J" 'cider-jack-in-cljs
+    "c j" 'my/cider-jack-in-cli
+    "c J" 'my/cider-jack-in-shadow
     "c c" 'coder-connect
     "c q" 'cider-quit
     "c k" 'cider-repl-clear-buffer
-    "c r" 'sesman-restart
+    "c r" 'my/integrant-reset
     "c e" 'cider-eval-buffer))
 
 (use-package clojure-mode :ensure t :defer t
@@ -262,24 +282,27 @@ packages are already installed which improves startup time."
       (div . 1)
       (figure . 1)
       (h1 . 1)
-      (h2 . 2)
-      (h3 . 3)
-      (h4 . 4)
-      (h5 . 5)
-      (h6 . 6)
+      (h2 . 1)
+      (h3 . 1)
+      (h4 . 1)
+      (h5 . 1)
+      (h6 . 1)
       (header . 1)
-      ;; (section . 1)
+      (section . 1)
+      (form . 1)
+      (nav . 1)
+      (a . 1)
+      (ul . 1)
+      (li . 1)
 
       ;; Fulcro/Om.next
       (transact! . 1)
       (action . 1)
       (add-form-config . 1)
       (load . 2)
-      (form . 1)
-      (nav . 1)
-      (a . 1)
-      (ul . 1)
-      (li . 1)
+      (route-to! . 2)
+      (start! . 2)
+      (begin! . 3)
 
       ;; Fulcro - common conventions and names for mutations
       (file-upload . 1)
@@ -374,6 +397,7 @@ packages are already installed which improves startup time."
               (delete-trailing-whitespace))))
 
 (use-package guix
+  :ensure t
   :defer t
   :commands (guix guix-all-packages)
   :init
@@ -442,7 +466,8 @@ packages are already installed which improves startup time."
   :commands (helm-projectile-find-file)
   :init
   (evil-leader/set-key
-    "p f" 'helm-projectile-find-file))
+    "p f" 'helm-projectile-find-file
+    "p g" 'helm-projectile-grep))
 
 (use-package restclient :ensure t :mode ("\\.restclient\\'" . restclient-mode))
 
