@@ -236,11 +236,6 @@ packages are already installed which improves startup time."
   :commands (cider-jack-in cider-jack-in-clj cider-jack-in-cljs cider-connect)
   :init
 
-  (defun my/cider-jack-in-cli ()
-    (interactive)
-    (let ((cider-preferred-build-tool 'clojure-cli))
-      (cider-jack-in-clj '())))
-
   (defun my/cider-jack-in-shadow ()
     (interactive)
     (let ((cider-preferred-build-tool 'shadow-cljs))
@@ -254,7 +249,7 @@ packages are already installed which improves startup time."
                             (cider--nrepl-pr-request-map)))
 
   (evil-leader/set-key
-    "c j" 'my/cider-jack-in-cli
+    "c j" 'cider-jack-in
     "c J" 'my/cider-jack-in-shadow
     "c c" 'coder-connect
     "c q" 'cider-quit
