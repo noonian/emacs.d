@@ -211,8 +211,8 @@ packages are already installed which improves startup time."
     "f r" 'raise-sexp
     "i"   'my/indent-buffer))
 
-(use-package evil-magit
-  :after (evil magit) :ensure t :demand t :defer t)
+;; (use-package evil-magit
+;;   :after (evil magit) :ensure t :demand t :defer t)
 
 (use-package evil-surround :ensure t :demand t
   :config
@@ -432,10 +432,7 @@ packages are already installed which improves startup time."
   (evil-leader/set-key
     "g"   'magit-status
     "m s" 'magit-status
-    "m c" 'magit-clone)
-  :config
-  (require 'evil-magit)
-  )
+    "m c" 'magit-clone))
 
 (use-package markdown-mode :ensure t :mode "\\.md\\'")
 
