@@ -269,6 +269,9 @@ packages are already installed which improves startup time."
       (get-query . 1)
       (get-initial-state . 1)
 
+      ;; Manifold
+      (let-flow . 1)
+
       ;; Core
       (assoc . 1)
       (into . 1)
