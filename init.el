@@ -495,6 +495,12 @@ packages are already installed which improves startup time."
 
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
+(use-package rjsx-mode
+  :ensure t
+  :mode "\\.js\\'"
+  :init
+  (setq js-indent-level 2))
+
 ;; Support local config untracked by git
 (if (file-exists-p "~/.emacs.d/lisp/local-init.el")
     (load "local-init")
