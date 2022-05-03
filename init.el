@@ -253,7 +253,10 @@ packages are already installed which improves startup time."
     "c J" 'my/cider-jack-in-shadow
     "c c" 'coder-connect
     "c q" 'cider-quit
-    "c k" 'cider-repl-clear-buffer
+    "c k" (lambda ()
+            (interactive)
+            (cider-find-and-clear-repl-output t))
+    ;; "c k" 'cider-repl-clear-buffer
     "c r" 'my/integrant-reset
     "c e" 'cider-eval-buffer))
 
