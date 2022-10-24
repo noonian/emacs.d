@@ -102,7 +102,7 @@ packages are already installed which improves startup time."
 (setq default-frame-alist
       '((top . 0) (left . 259)          ;pixels
         (width . 100) (height . 54)     ;characters
-        (font . "Input Mono 16")
+        (font . "Input Mono 14")
         ))
 
 ;;;
@@ -203,7 +203,6 @@ packages are already installed which improves startup time."
 
   (evil-leader/set-key
     "w"   'save-buffer
-    "b"   'switch-to-buffer
     "c b" 'my/close-other-byffers
     "k"   'kill-buffer
     "P l" 'my/find-projects-dir
@@ -214,9 +213,9 @@ packages are already installed which improves startup time."
 ;; (use-package evil-magit
 ;;   :after (evil magit) :ensure t :demand t :defer t)
 
-(use-package evil-surround :ensure t :demand t
-  :config
-  (global-evil-surround-mode))
+;; (use-package evil-surround :ensure t :demand t
+;;   :config
+;;   (global-evil-surround-mode))
 
 ;;;
 ;;;
@@ -250,12 +249,15 @@ packages are already installed which improves startup time."
 
   (evil-leader/set-key
     "c j" 'cider-jack-in
-    "c J" 'my/cider-jack-in-shadow
+    ;; "c J" 'my/cider-jack-in-shadow
+    "c J" 'cider-jack-in-cljs
     "c c" 'coder-connect
     "c q" 'cider-quit
     "c k" (lambda ()
             (interactive)
-            (cider-find-and-clear-repl-output t))
+            (if (bound-and-true-p eshell-mode)
+                (eshell/clear-scrollback)
+                (cider-find-and-clear-repl-output t)))
     ;; "c k" 'cider-repl-clear-buffer
     "c r" 'my/integrant-reset
     "c e" 'cider-eval-buffer))
@@ -264,6 +266,14 @@ packages are already installed which improves startup time."
   :config
   (defconst my/clojure-indentations
     '(
+      ;; core
+      (merge-with . 1)
+
+      ;; re-frame
+      (reg-event-fx . 1)
+      (reg-event-db . 1)
+      (reg-sub . 1)
+
       ;; tmp/custom
       (get-ident . 1)
       (get-query . 1)
@@ -297,6 +307,7 @@ packages are already installed which improves startup time."
       (li . 1)
 
       ;; Fulcro/Om.next
+      (render . 1)
       (transact! . 1)
       (action . 1)
       (add-form-config . 1)
@@ -481,11 +492,19 @@ packages are already installed which improves startup time."
 ;; Python pipenv uses toml for config ಠ_ಠ
 (use-package toml-mode :ensure t :commands (toml-mode))
 
+(use-package tide :ensure t)
+
 (use-package web-mode
   :ensure t
-  :mode "\\.html\\'"
+  :mode ("\\.html\\'" "\\.tsx\\'" "\\.ts\\'")
   :init
-  (setq web-mode-markup-indent-offset 2))
+  (setq web-mode-markup-indent-offset 2)
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equals "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; (flycheck-add-mode 'typescript-tslint 'web-mode)
+  )
 
 (use-package yasnippet :ensure t
   :init
@@ -500,6 +519,13 @@ packages are already installed which improves startup time."
   :mode "\\.js\\'"
   :init
   (setq js-indent-level 2))
+
+(use-package envrc
+  :ensure t
+  :init
+  (evil-leader/set-key
+    "E r" 'envrc-reload
+    "E a" 'envrc-allow))
 
 ;; Support local config untracked by git
 (if (file-exists-p "~/.emacs.d/lisp/local-init.el")

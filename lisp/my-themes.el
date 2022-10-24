@@ -4,7 +4,6 @@
 (use-package base16-theme
   :ensure t
   :config
-
   ;; (load-theme 'base16-3024 t)
   ;; (load-theme 'base16-apathy t)
   ;; (load-theme 'base16-ashes t)
@@ -71,7 +70,7 @@
   ;; (load-theme 'base16-grayscale-light t)
   ;; (load-theme 'base16-greenscreen t)
   ;; (load-theme 'base16-gruvbox-dark-hard t)
-  ;; (load-theme 'base16-gruvbox-dark-medium t)
+  (load-theme 'base16-gruvbox-dark-medium t)
   ;; (load-theme 'base16-gruvbox-dark-pale t)
   ;; (load-theme 'base16-gruvbox-dark-soft t)
   ;; (load-theme 'base16-gruvbox-light-hard t)
@@ -141,16 +140,15 @@
   ;; (load-theme 'base16-woodland t)
   ;; (load-theme 'base16-xcode-dusk t)
   ;; (load-theme 'base16-zenburn t)
-
   ;; Set the cursor color based on the evil state
   ;; (defvar my/base16-colors base16-rebecca-colors)
+  ;; (defvar my/base16-colors base16- )
   ;; (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
   ;;       evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
   ;;       evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
   ;;       evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
   ;;       evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
   ;;       evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
-
   )
 
 ;; (use-package dracula-theme
@@ -170,16 +168,16 @@
 ;;   ;; (load-theme 'gruvbox-light-hard t)
 ;;   )
 
-(use-package moe-theme
-  :ensure t
-  :demand t
-  :after powerline
-  :init
-  (setq powerline-image-apple-rgb (eq window-system 'ns))
-  :config
-  ;; (load-theme 'moe-light t)
-  (load-theme 'moe-dark t)
-  (powerline-moe-theme))
+;; (use-package moe-theme
+;;   :ensure t
+;;   :demand t
+;;   :after powerline
+;;   :init
+;;   (setq powerline-image-apple-rgb (eq window-system 'ns))
+;;   :config
+;;   ;; (load-theme 'moe-light t)
+;;   (load-theme 'moe-dark t)
+;;   (powerline-moe-theme))
 
 ;; (use-package nord-theme
 ;;   :ensure t
@@ -202,19 +200,19 @@
 ;;   ;; (load-theme 'poet)
 ;;   (load-theme 'poet-dark))
 
-(use-package kaolin-themes
-  :ensure t
-  :config
-  ;; (load-theme 'kaolin-dark t)
-  ;; (load-theme 'kaolin-aurora t)
-  ;; (load-theme 'kaolin-bubblegum)
-  ;; (load-theme 'kaolin-light t)
-  ;; (load-theme 'kaolin-eclipse t)
-  ;; (load-theme 'kaolin-ocean t)
-  ;; (load-theme 'kaolin-galaxy t)
-  ;; (load-theme 'kaolin-valley-dark t)
-  ;; (load-theme 'kaolin-temple t)
-  )
+;; (use-package kaolin-themes
+;;   :ensure t
+;;   :config
+;;   ;; (load-theme 'kaolin-dark t)
+;;   ;; (load-theme 'kaolin-aurora t)
+;;   ;; (load-theme 'kaolin-bubblegum)
+;;   ;; (load-theme 'kaolin-light t)
+;;   ;; (load-theme 'kaolin-eclipse t)
+;;   ;; (load-theme 'kaolin-ocean t)
+;;   ;; (load-theme 'kaolin-galaxy t)
+;;   ;; (load-theme 'kaolin-valley-dark t)
+;;   ;; (load-theme 'kaolin-temple t)
+;;   )
 
 
 (provide 'my-themes)
