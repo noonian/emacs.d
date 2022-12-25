@@ -102,7 +102,7 @@ packages are already installed which improves startup time."
 (setq default-frame-alist
       '((top . 0) (left . 259)          ;pixels
         (width . 100) (height . 54)     ;characters
-        (font . "Input Mono 14")
+        (font . "Input Mono 16")
         ))
 
 ;;;
@@ -427,7 +427,6 @@ packages are already installed which improves startup time."
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files))
   :config
-  (require 'helm-config)
   (helm-mode 1))
 
 ;; (use-package highlight-parentheses
