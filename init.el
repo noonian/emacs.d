@@ -116,6 +116,18 @@ packages are already installed which improves startup time."
                   (other-window 1)
                   (delete-window)))
 
+(defun my/clear-other-window-output ()
+  (interactive)
+  (let ((window (cl-find-if (lambda (w)
+                              (with-current-buffer (window-buffer w)
+                                (or (bound-and-true-p eshell-mode)
+                                    (bound-and-true-p cider-mode))))
+                            (window-list))))
+    (with-current-buffer (window-buffer window)
+      (my/clear-eshell-or-cider-output))))
+
+(global-set-key (kbd "s-|") 'my/clear-other-window-output)
+
 ;;; Windows support
 
 ;; Make left windows key act as super
@@ -230,9 +242,9 @@ packages are already installed which improves startup time."
 
 (use-package cider
   :ensure t
-  :defer t
+  :defer nil
   :after exec-path-from-shell
-  :commands (cider-jack-in cider-jack-in-clj cider-jack-in-cljs cider-connect)
+  ;; :commands (cider-jack-in cider-jack-in-clj cider-jack-in-cljs cider-connect)
   :init
 
   (defun my/cider-jack-in-shadow ()
@@ -247,27 +259,46 @@ packages are already installed which improves startup time."
                             nil
                             (cider--nrepl-pr-request-map)))
 
+  (defun my/clear-eshell-or-cider-output ()
+    (interactive)
+    (if (bound-and-true-p eshell-mode)
+        (eshell/clear-scrollback)
+      (cider-find-and-clear-repl-output t)))
+
   (evil-leader/set-key
     "c j" 'cider-jack-in
     ;; "c J" 'my/cider-jack-in-shadow
     "c J" 'cider-jack-in-cljs
     "c c" 'coder-connect
     "c q" 'cider-quit
-    "c k" (lambda ()
-            (interactive)
-            (if (bound-and-true-p eshell-mode)
-                (eshell/clear-scrollback)
-                (cider-find-and-clear-repl-output t)))
+    "c k" 'my/clear-eshell-or-cider-output
+    ;; (lambda ()
+    ;;         (interactive)
+    ;;         (if (bound-and-true-p eshell-mode)
+    ;;             (eshell/clear-scrollback)
+    ;;           (cider-find-and-clear-repl-output t)))
     ;; "c k" 'cider-repl-clear-buffer
     "c r" 'my/integrant-reset
     "c e" 'cider-eval-buffer))
 
 (use-package clojure-mode :ensure t :defer t
+  ;; :mode ("\\.clj\\'" "\\.cljs\\'" "\\.cljc\\'" "\\.tmpl\\'" "\\.edn\\'")
   :config
   (defconst my/clojure-indentations
     '(
+
+      (not= . 0)
+      (= . 0)
+      (println . 0)
+      (format . 0)
+
+      ;; other
+      (update-package-json . 0)
+      (get . 0)
+
       ;; core
       (merge-with . 1)
+      (merge . 0)
 
       ;; re-frame
       (reg-event-fx . 1)
@@ -283,28 +314,43 @@ packages are already installed which improves startup time."
       (let-flow . 1)
 
       ;; Core
+      (mod . 0)
+      (/ . 0)
       (assoc . 1)
       (into . 1)
       (add-watch . 2)
+      (or . 0)
+      (mapv . 0)
+      (-> . 0)
+      (->> . 0)
+      (some-> . 0)
+      (some->> . 0)
+      (and . 0)
+      (ns . defn)
+      (+ . 0)
+      (* . 0)
+      (reduce . 0)
+      (mapcat . 0)
 
       ;; HTML
-      (article . 1)
+      (article . defn)
       (button . 1)
-      (div . 1)
+      (div . defn)
       (figure . 1)
-      (h1 . 1)
-      (h2 . 1)
-      (h3 . 1)
-      (h4 . 1)
-      (h5 . 1)
-      (h6 . 1)
-      (header . 1)
-      (section . 1)
-      (form . 1)
-      (nav . 1)
-      (a . 1)
-      (ul . 1)
-      (li . 1)
+      (h1 . defn)
+      (h2 . defn)
+      (h3 . defn)
+      (h4 . defn)
+      (h5 . defn)
+      (h6 . defn)
+      (header . defn)
+      (section . defn)
+      (form . defn)
+      (nav . defn)
+      (a . defn)
+      (ul . defn)
+      (li . defn)
+      (input . defn)
 
       ;; Fulcro/Om.next
       (render . 1)
@@ -325,6 +371,7 @@ packages are already installed which improves startup time."
 
       ))
 
+  (setq clojure-indent-style 'always-indent)
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
 
@@ -388,6 +435,8 @@ packages are already installed which improves startup time."
       (exec-path-from-shell-initialize)
       (setq-default eshell-path-env (string-join exec-path ":"))))
   :config
+  (dolist (var '("HOMEBREW_GITHUB_API_TOKEN"))
+    (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize-safely))
 
 (use-package groovy-mode :ensure t :mode  "(\\.groovy\\|\\.gradle)\\'")
@@ -530,6 +579,9 @@ packages are already installed which improves startup time."
 (if (file-exists-p "~/.emacs.d/lisp/local-init.el")
     (load "local-init")
   (message "local-init.el does not exist"))
+
+(exec-path-from-shell-initialize-safely)
+(envrc-global-mode)
 
 ;; Start server to support emacsclient
 (server-start)
