@@ -287,6 +287,14 @@ packages are already installed which improves startup time."
   (defconst my/clojure-indentations
     '(
 
+      (apply . 0)
+      (map . 0)
+      (str . 0)
+      (union . 0)
+      (intersection . 0)
+      (recur . 0)
+      (comp . 0)
+
       (not= . 0)
       (= . 0)
       (println . 0)
@@ -321,6 +329,11 @@ packages are already installed which improves startup time."
       (add-watch . 2)
       (or . 0)
       (mapv . 0)
+      (filterv . 0)
+      (filter . 0)
+      (.. . 0)
+      (join . 0)
+      (set . 0)
       (-> . 0)
       (->> . 0)
       (some-> . 0)
