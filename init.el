@@ -33,6 +33,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
+(when (string= system-type "darwin")
+  (setq dired-use-ls-dired nil))
+
 (defun my/package-installed-p (pkg)
   "Check if package is installed. In emacs26 package-installed-p
 seems to require package-initialize iff the package is *not*
@@ -103,6 +106,8 @@ packages are already installed which improves startup time."
       '((top . 0) (left . 259)          ;pixels
         (width . 100) (height . 54)     ;characters
         (font . "Input Mono 16")
+        (ns-transparent-titlebar . t)
+        (ns-appearance . dark)
         ))
 
 ;;;
@@ -110,6 +115,8 @@ packages are already installed which improves startup time."
 ;;; Global keybindings
 
 (global-set-key (kbd "<f7>") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "<f8>") (lambda () (interactive) (find-file "~/.emacs.d/lisp/my-themes.el")))
+(global-set-key (kbd "<f9>") (lambda () (interactive) (find-file "~/.emacs.d/lisp/local-init.el")))
 (global-set-key (kbd "s-\\")
                 (lambda ()
                   (interactive)
@@ -141,8 +148,9 @@ packages are already installed which improves startup time."
 (use-package evil
   :ensure t :demand t
   :init
-  (setq evil-want-integration nil)
+  (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-minibuffer nil)
   :config
   (evil-mode 1)
   (add-hook 'view-mode-hook 'evil-motion-state)
@@ -159,14 +167,10 @@ packages are already installed which improves startup time."
   (add-hook 'cider-repl-mode-hook 'evil-cleverparens-mode))
 
 (use-package evil-collection
-  :after evil :ensure t :demand t
+  :after evil
+  :ensure t
+  :demand t
   :config
-  (defun my/evil-collection-helm-tweaks ()
-    (evil-collection-define-key nil 'helm-map
-      (kbd "C-j") 'helm-next-line
-      (kbd "C-k") 'helm-previous-line
-      (kbd "C-h") 'helm-execute-persistent-action))
-  (advice-add 'evil-collection-helm-setup :after #'my/evil-collection-helm-tweaks)
   (evil-collection-init))
 
 (use-package evil-commentary
@@ -222,13 +226,6 @@ packages are already installed which improves startup time."
     "f r" 'raise-sexp
     "i"   'my/indent-buffer))
 
-;; (use-package evil-magit
-;;   :after (evil magit) :ensure t :demand t :defer t)
-
-;; (use-package evil-surround :ensure t :demand t
-;;   :config
-;;   (global-evil-surround-mode))
-
 ;;;
 ;;;
 ;;; Random packages
@@ -272,11 +269,6 @@ packages are already installed which improves startup time."
     "c c" 'coder-connect
     "c q" 'cider-quit
     "c k" 'my/clear-eshell-or-cider-output
-    ;; (lambda ()
-    ;;         (interactive)
-    ;;         (if (bound-and-true-p eshell-mode)
-    ;;             (eshell/clear-scrollback)
-    ;;           (cider-find-and-clear-repl-output t)))
     ;; "c k" 'cider-repl-clear-buffer
     "c r" 'my/integrant-reset
     "c e" 'cider-eval-buffer))
@@ -388,16 +380,54 @@ packages are already installed which improves startup time."
   (dolist (item my/clojure-indentations)
     (put-clojure-indent (car item) (cdr item))))
 
-(use-package company :ensure t
+;;; completion
+
+;; hooks into normal emacs completion fns to provide better UI
+(use-package vertico
+  :ensure t
   :init
-  (setq company-idle-delay 0.1)
-  (setq company-minimum-prefix-length 1)
-  (setq company-dabbrev-downcase nil)
-  (global-company-mode)
+  (vertico-mode)
   :config
-  (evil-define-key 'insert company-active-map (kbd "<return>") #'company-complete-selection)
-  (evil-collection-define-key nil 'company-active-map (kbd "<return>") #'company-complete-selection)
+  (define-key minibuffer-local-map (kbd "C-j") 'next-line)
+  (define-key minibuffer-local-map (kbd "C-k") 'previous-line))
+
+;; allows space separated fuzzy matches
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package corfu
+  :ensure t
+  :config
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0.5)
+  :init
+  (global-corfu-mode))
+
+;;; project and code navigation
+
+(use-package consult
+  :ensure t
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :commands (consult-find consult-grep)
+  :init
+  (setq consult-async-refresh-delay 0.1)
+  (evil-leader/set-key
+    "p f" 'consult-find
+    "p g" 'consult-grep)
+  :config
+  ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?"))
   )
+
+;;; code quality and formatting
+
+(use-package apheleia
+  :ensure t
+  :delight
+  :config
+  (apheleia-global-mode +1))
 
 (use-package dockerfile-mode :ensure t :defer t)
 
@@ -428,8 +458,6 @@ packages are already installed which improves startup time."
           (my/start-shell t (1+ (or n 1)))))))
 
   (evil-leader/set-key "s" 'my/start-shell)
-
-  (add-hook 'eshell-mode-hook (lambda () (company-mode -1)))
 
   )
 
@@ -478,24 +506,10 @@ packages are already installed which improves startup time."
   (evil-leader/set-key
     "G" 'guix))
 
-(use-package helm
-  :ensure t :defer 0.5 :delight helm-mode
-  :commands (helm-find-files)
+(use-package emacs
   :init
-  (setq helm-autoresize-mode t)
-  (setq helm-buffer-max-length 40)
   (evil-leader/set-key
-    "e" 'helm-find-files)
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files))
-  :config
-  (helm-mode 1))
-
-;; (use-package highlight-parentheses
-;;   :ensure t
-;;   :demand t
-;;   :config
-;;   (global-highlight-parentheses-mode))
+    "e" 'find-file))
 
 ;; Best git porcelain EVER!!!!!!!!!
 (use-package magit
@@ -509,35 +523,21 @@ packages are already installed which improves startup time."
 
 (use-package markdown-mode :ensure t :mode "\\.md\\'")
 
-(use-package powerline :ensure t)
-
-(require 'my-themes)
-
 (use-package org-bullets
   :ensure t :defer t
   :commands (org-bullets-mode)
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(use-package org-tree-slide :ensure t :defer t
-  :bind
-  (("<f8>" . org-tree-slide-mode)
-   ("<f9>" . org-tree-slide-move-previous-tree)
-   ("<f10>" . org-tree-slide-move-next-tree)))
+;; (use-package org-tree-slide :ensure t :defer t
+;;   :bind
+;;   (("<f8>" . org-tree-slide-mode)
+;;    ("<f9>" . org-tree-slide-move-previous-tree)
+;;    ("<f10>" . org-tree-slide-move-next-tree)))
 
 (use-package ox-hugo
   :ensure t
   :after ox)
-
-(use-package projectile :ensure t :defer t)
-
-(use-package helm-projectile
-  :ensure t :defer t
-  :commands (helm-projectile-find-file)
-  :init
-  (evil-leader/set-key
-    "p f" 'helm-projectile-find-file
-    "p g" 'helm-projectile-grep))
 
 (use-package restclient :ensure t :mode ("\\.restclient\\'" . restclient-mode))
 
@@ -553,20 +553,6 @@ packages are already installed which improves startup time."
 ;; Python pipenv uses toml for config ಠ_ಠ
 (use-package toml-mode :ensure t :commands (toml-mode))
 
-(use-package tide :ensure t)
-
-(use-package web-mode
-  :ensure t
-  :mode ("\\.html\\'" "\\.tsx\\'" "\\.ts\\'")
-  :init
-  (setq web-mode-markup-indent-offset 2)
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equals "tsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
-  ;; (flycheck-add-mode 'typescript-tslint 'web-mode)
-  )
-
 (use-package yasnippet :ensure t
   :init
   (add-hook 'mhtml-mode-hook (lambda () (yas-minor-mode 1)))
@@ -575,18 +561,57 @@ packages are already installed which improves startup time."
 
 (use-package yaml-mode :ensure t :mode "(\\.yaml\\|\\.yml)\\'")
 
-(use-package rjsx-mode
-  :ensure t
-  :mode "\\.js\\'"
-  :init
-  (setq js-indent-level 2))
-
 (use-package envrc
   :ensure t
   :init
   (evil-leader/set-key
     "E r" 'envrc-reload
     "E a" 'envrc-allow))
+
+;;; eye candy
+
+(use-package beacon
+  :ensure t
+  :delight
+  :demand t
+  :config
+  (beacon-mode 1))
+
+(use-package minimap
+  :ensure t
+  :init
+  (setq minimap-window-location 'right)
+  (setq minimap-update-delay 0.1)
+  (custom-set-faces
+   '(minimap-active-region-background
+     ((((background dark)) (:background "SlateBlue1" :extend t))
+      (t (:background "#D3D3D3222222" :extend t)))
+     "Face for the active region in the minimap.
+By default, this is only a different background color."
+     :group 'minimap))
+  (evil-leader/set-key
+    "d m" 'minimap-mode))
+
+(use-package moody
+  :ensure t
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
+(use-package minions
+  :ensure t
+  :after moody
+  :config
+  (minions-mode 1))
+
+(use-package neotree
+  :ensure t
+  :init
+  (evil-leader/set-key
+    "d t" 'neotree))
+
+(require 'my-themes)
 
 ;; Support local config untracked by git
 (if (file-exists-p "~/.emacs.d/lisp/local-init.el")

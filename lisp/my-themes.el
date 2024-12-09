@@ -70,7 +70,7 @@
   ;; (load-theme 'base16-grayscale-light t)
   ;; (load-theme 'base16-greenscreen t)
   ;; (load-theme 'base16-gruvbox-dark-hard t)
-  (load-theme 'base16-gruvbox-dark-medium t)
+  ;; (load-theme 'base16-gruvbox-dark-medium t) ;good one
   ;; (load-theme 'base16-gruvbox-dark-pale t)
   ;; (load-theme 'base16-gruvbox-dark-soft t)
   ;; (load-theme 'base16-gruvbox-light-hard t)
@@ -124,7 +124,7 @@
   ;; (load-theme 'base16-shapeshifter t)
   ;; (load-theme 'base16-snazzy t)
   ;; (load-theme 'base16-solarflare t)
-  ;; (load-theme 'base16-solarized-dark t)
+  (load-theme 'base16-solarized-dark t)
   ;; (load-theme 'base16-solarized-light t)
   ;; (load-theme 'base16-spacemacs t)
   ;; (load-theme 'base16-summerfruit-dark t)
@@ -142,7 +142,7 @@
   ;; (load-theme 'base16-zenburn t)
   ;; Set the cursor color based on the evil state
   ;; (defvar my/base16-colors base16-rebecca-colors)
-  ;; (defvar my/base16-colors base16- )
+  ;; (defvar my/base16-colors base16-solarized-dark-theme-colors)
   ;; (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
   ;;       evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
   ;;       evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
@@ -168,17 +168,6 @@
 ;;   ;; (load-theme 'gruvbox-light-hard t)
 ;;   )
 
-;; (use-package moe-theme
-;;   :ensure t
-;;   :demand t
-;;   :after powerline
-;;   :init
-;;   (setq powerline-image-apple-rgb (eq window-system 'ns))
-;;   :config
-;;   ;; (load-theme 'moe-light t)
-;;   (load-theme 'moe-dark t)
-;;   (powerline-moe-theme))
-
 ;; (use-package nord-theme
 ;;   :ensure t
 ;;   :config
@@ -203,7 +192,7 @@
 ;; (use-package kaolin-themes
 ;;   :ensure t
 ;;   :config
-;;   ;; (load-theme 'kaolin-dark t)
+;;   (load-theme 'kaolin-dark t)
 ;;   ;; (load-theme 'kaolin-aurora t)
 ;;   ;; (load-theme 'kaolin-bubblegum)
 ;;   ;; (load-theme 'kaolin-light t)
